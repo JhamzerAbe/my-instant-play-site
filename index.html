@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InstantPlay - Top 100 Steam Games</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Motiva+Sans:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <i class="fa-brands fa-steam"></i>
+    <h1>InstantPlay</h1>
+  </div>
+
+  <div class="search-bar">
+    <input type="text" id="search" placeholder="Search Top 100 games..." />
+    <button id="searchBtn"><i class="fa-solid fa-search"></i></button>
+  </div>
+
+  <div class="header-controls">
+    <button id="refreshBtn" class="nav-btn" title="Force Refresh Data">
+      <i class="fa-solid fa-rotate"></i>
+    </button>
+    <button id="cartBtn" class="nav-btn">
+      <i class="fa-solid fa-shopping-cart"></i> 
+      <span id="cartCount" class="badge">0</span>
+    </button>
+    <button id="themeToggle" class="nav-btn"><i class="fa-solid fa-moon"></i></button>
+  </div>
+</header>
+
+<section class="controls">
+  <div class="filter-group">
+    <label><i class="fa-solid fa-sort"></i> Sort By:</label>
+    <select id="sort">
+      <option value="az">Name: A–Z</option>
+      <option value="za">Name: Z–A</option>
+      <option value="size-asc">Storage: Small → Large</option>
+      <option value="size-desc">Storage: Large → Small</option>
+    </select>
+  </div>
+</section>
+
+<div id="status-bar" class="status-bar hidden">
+  <div class="progress-container">
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
+  <p id="statusText">Updating game details...</p>
+</div>
+
+<main>
+  <div id="loader" class="loader">
+    <div class="spinner"></div>
+    <p>Fetching Top 100 Steam Games...</p>
+  </div>
+  
+  <div id="games" class="games-grid"></div>
+</main>
+
+<!-- CART MODAL -->
+<div id="cartModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2><i class="fa-solid fa-shopping-cart"></i> Your Cart</h2>
+      <button class="close-btn" onclick="closeCart()">&times;</button>
+    </div>
+    
+    <div class="cart-body">
+      <ul id="cartItems"></ul>
+      <div class="cart-summary">
+        <p>Total Games: <span id="totalCount">0</span></p>
+        <p>Total Storage: <strong id="totalSize">0.00</strong> GB</p>
+        
+        <div id="storageWarning" class="warning hidden">
+          <i class="fa-solid fa-triangle-exclamation"></i> High storage usage!
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="action-btn secondary" onclick="clearCart()">Clear Cart</button>
+      <button class="action-btn primary" onclick="sendToAdmin()">
+        <i class="fa-solid fa-paper-plane"></i> Send to Admin
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- DETAILS MODAL -->
+<div id="detailsModal" class="modal">
+  <div class="modal-content details-modal-content">
+    <div class="modal-header">
+      <h2>Game Details</h2>
+      <button class="close-btn" onclick="closeDetails()">&times;</button>
+    </div>
+    <div id="detailsContent" class="details-content-wrapper">
+      <!-- Injected via JS -->
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>Offline Games Mode Active. Data provided by local catalog & Steam Web API.</p>
+</footer>
+
+<script src="offline_data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
